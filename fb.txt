@@ -1,0 +1,548 @@
+﻿Ligo - ligonių registracijos sistema. 
+
+       ligonių registracijos sistema, apjungianti kelias ligonių registracijos sistemas. Ji leidžia peržiūrėti bei užsiregistruoti kitose ligonių sistemose, neišeinant iš ligo aplinkos. 
+       
+       Ligonių registracijos sistema, gyalima greitai ir patogiai užsiregistruoti pas norimą gydytoją norimoje gydymo įstaigoje. 
+       
+       Ligoninės registracijos sistema, leidžianti užsiregistruoti vizitui pas gydytoją ir teikianti informaciją apie tos ligoninės gydytojus. (lokalus, nesutampa)
+
+Svarbumo prioritetai:
+    1: Būtinas įgyvendinimas. be kurio sistema neatliktų net ir elementarios esminės verslo logikos.
+    2: Labai svarbu. Be šio reikalavimo sistema galėtų atlikti elementarią esminę verslo logiką, bet naudotojai negalėtų naudotis sistema tik su šiais reikalavimais, nes juos veiktų išorinės sistemos. Sistemos veikimo korektiškumas nepriklausytų nuo išorinių sistemų.
+    3: Svarbu. Be šio reikalimo sistema praranda savo patrauklumą ir neišsiskiria nuo esamų sistemų. Sistema atliktų esminę verslo logiką, bet netenkintų interesuotų asmenų keliamų lūkesčių.
+    4: Neprivaloma. Be šio reikalavimo sistema funkcionuotų bei tenkintų interesuoto asmens lūkesčius, bet būtų gerai, kad šis reikalavimas būtų įgyvendintas, nes pagerintų interesuoto asmens darbą su sistema.
+
+Pokyčių skalė:
+    1: Nėra arba neesminiai pokyčiai. Šis reikalavimas yra stabilus ir nereikalaujantis didelių funkcinių pakitimų.
+    2: Galimi vidutiniai pokyčiai. Šis reikalavimas gali turėti loginių pokyčių, bet ne visišką reikalavimo perdarymą.
+    3: Galimi esminiai pokyčiai. Šis reikalavimas yra labai lankstus ir gali būti prašomas perdaryti užsigeidus suinteresuotam asmeniui.
+
+Brainstormas:
+    1:  Užsiregistruoti pas gydytoją;
+            Reikalavimo tipas: Funkcinis
+            Kilo iš: bazinis;
+            Aktoriai: Gydytojas, pacientas.
+            Svarbumas: 1.
+            Poveikis sistemai: Esminis sistemos blokas. Be jo sistema negalėtų funkcionuoti, todėl veikia visą ligo sistemą.
+            Pokyčių skalė: 1.
+        
+            veikimo principas: Pacientas užsiregistruoja pas gydytoją remiantis galimais    gydytojo registracijos talonais. Gydytojas gali pridėti gydyotojo registracijos talonus bei priskirti galimą pacientą.
+        
+        Galimi konfliktai: -/-
+        
+        Pastabos: 
+            Tomas: įgyvendintas pirmo laboratorinio darbo protipe.
+            Ignas: pagrindinis sistemos reikalavimas.
+        
+    2:  Pateikti gydytojo informaciją;
+            Reikalavimo tipas: Funckinis.
+            Kilo iš: Užsiregistruoti pas gydytoją(1).
+            Aktoriai: Pacientas, gydytojas(redagavimo tikslams)
+            Svarbumas: 2.
+            poveikis sistemai: Gali iškelti neaiškumų atliekant registraciją pas gydytoją(1). Šio reikalavimo įgyvendinimas veikia visus komponentus, naudojančius šią informaciją.
+            pokyčių skalė: 2.
+            
+            Veikimo principas: Paprašius vartotojui, administratoriui, pateikiama tam aktoriui leidžiama prieiti informacija.
+            
+            Galimi konfliktai: vienos ligoninių registracijos sistemos šiuos duomenis gali paduoti vienaip, o kitos kitaip. Todėl pokyčių skalė yra įvertinta dvejetu. Įgyvendinant sistemą, reikės atsižvelgti į gaunamą informaciją iš kitų registracijos sistemų bei sukoreguoti juos taip, kad pateikiama informacija būtų paduodama korektiškai, pagal nusistatytą notaciją.
+            
+            Pastabos:
+                Tomas: Šis reikalavimas veiks nemažą dalį kitų reikalavimų, nors jo įgyvendinimas nėra įvertintas vienetu svarbumo skalėje.
+            
+            
+    3:  Pateikti gydytojo darbo grafiką;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Pateikti gydyojo informaciją(2), užsiregistruoti pas gydytoją(1).
+            Aktoriai: Pacientas, Gydytojas(redagavimo tikslams)
+            Svarbumas: 2.
+            Poveikis sistemai: Be šio reikalavimo labai sunku užsiregistruoti pas gydytoją. Gali paskirti laiką, netinkantį pacientui, todėl paciento akyse ši logika tampa nekorektiška.
+            pokyčių skalė: 2.
+            
+            Veikimo principas: Ligo gauna šią informaciją iš kitų ligonių registracijos sistemų bei pateikia ją pacientams.
+            
+            Galimi konflikai: žr. reikalavimą nr. 2.
+            
+            Pastabos: 
+                Ignas: Kyla neaiškumų dėl šio reikalavimo įgyvendinimo bei veikimo principo.
+            
+    4:  Atnaujina gydytojo darbo grafiko informaciją;
+            Reikalavimo tipas: Nefunkcinis.
+            kilo iš: Pateikti gydytojo darbo grafiką(3).
+            Aktoriai: -/-
+            Svarbumas: 3(2)
+            Poveikis sistemai: Tai veikia gydytojo darbo grafiką.
+            pokyčių skalė: 2.
+            
+            Veikimo principas: Priima naują darbo grafiką iš išorinių duomenų bazių.
+            
+            Galimi konfliktai: poveikis lokalizuotai, izoliuotai bandomajai sistemai trivialus(bandomajame scenarijuje veiktų), bet prijungus prie kitų ligoninių sistemų, registracija iškeltų problemų, nes darbo grafiką veikia išorinės sistemos, nepriklausančios Ligo.
+            
+            Pastabos: 
+                Ignas: Mano manymu, šio reikalavimo svarbumas turėtų būti 2.
+                
+    5:  Atlikti gydytojo paiešką;
+            Reikalavimo tipas: Nefunkcinis.
+            Kilo iš: Registracija pas gydytoją(1), Pateikti gydytojo informaciją(2).
+            Aktoriai: pacientas.
+            Svarbumas: 3
+            Poveikis sistemai: Padarys registraciją dideliame gydytojų masyve prieinamą vartotojui.
+            pokyčių skalė: 1.
+            
+            Veikimo principas: Atrašiuoja gydytojus pagal vartotojo poreikius.
+            
+            Galimi konfliktai: -/-
+            
+            Pastabos: -/-
+                
+            
+    6:  Atšaukti vizitą pas gydyotoją;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1), Pateikti gydytojo darbo grafiką(3).
+            Aktoriai: Pacientas, gydytojas.
+            Svarbumas: 3.
+            Poveikis sistemai: Atlaisvins užimtus talonus gydytojo darbo grafike.
+            pokyčių skalė: 1.
+            
+            Veikimo principas: Leidžia atšaukti vizitą pas gydytoją pacientui.
+            
+            Galimi konfliktai: Pacientas gali piknaudžiauti sistema bei rezervuoti bei atšaukti vizitus neatsakingai.
+            
+            Pastabos:
+                Mykolas: Su šiais reikalavimai mes vis toliau šaliname gydytojus iš sistemos.
+            
+    7:  Priminti apie vizitą pas gydytoją;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1).
+            Aktoriai: Pacientas.
+            Svarbumas: 4
+            Poveikis sistemai: Sumažina pamirštų vizitų tikimybę.
+            Pokyčių skalė: 1.
+            
+            Veikimo principas: Išsiunčia žinutę likus tam tikram laiko tarpui iki vizito.
+            
+            Galimi konfliktai: Gali nukeliauti į spam dežutę, jei siųsime pranešimą per el. paštą.
+            
+            Pastabos;
+                Ignas: Reikia pridėt galimybę ir atšaukti priminimus.
+    
+    8:  Pateikti gydymo įstaigų sąrašą; 
+            Reikalavimo tipas: Nefunkcinis.
+            Kilo iš: Atlikti gydytojo paiešką(5).
+            Aktoriai: Pacientas.
+            Svarbumas: 3.
+            Poveikis sistemai: Pagreitina gydytojo paiešką.
+            Pokyčių skalė: 1.
+            
+            Veikimo principas: Suskirsto gydytojus pagal įstaigas bei leidžia vartotojui išsirinkti jam reikalingą įstaigą gydytojo paieškai.
+            
+            Galimi konflikai: Vartotojas gali norėti atlikti paiešką ne pagal įstaigą, todėl reikalingas implementavimas bendrai paieškai.
+            
+            Pastabos:
+                Ignas: Manau, kad šis reikalavimas yra galimai nereikalingas.
+                
+    9: Šeimos gydytojo keitimas;
+            Reikalavimo tipas; Funkcinis.
+            Kilo iš: -/-.
+            Aktoriai: Pacientas.
+            Svarbumas: 4
+            Poveikis sistemai: Leidžia pacientui priregistruoti kitą šeimos gydytoją.
+            Pokyčių skalė: 3.
+            
+            Veikimo principas: Priskiria pacientui leidžiamą pasirinkti šeimos gydytoją.
+            
+            Galimi konfliktai: Galima piknaudžiavimas sistema per dažnu keitimu. Šis reikalavimas gali būti neimplementuotas kitoje ligoninės sistemoje, todėl ir neįvykdomas Ligo.
+            
+            Pastabos:
+                Ignas: Negalima maišyti poliklinikos su ligonine. Reikia išsiaiškinti sąvokų skirtumus.
+                
+    10: Priregistruotos gydymo įstaigos keitimas;
+            Reikalavimo tipas; Funkcinis.
+            Kilo iš: Užsiregistruoti pas gydytoją(1)
+            Aktoriai: Pacientas
+            Svarbumas: 4.
+            Poveikis sistemai: Priskiria pacientą prie tam tikros gydymo įstagos. Priskirimas leidžia registruotis prie tos įstaigos gydytojo.
+            Pokyčių skalė: 3.
+            
+            Veikimo principas: Susieja pacientą su tos gydymo įstaigos sistema, išplėtoja jo prieeigą prie jos.
+            
+            Galimi konfliktai: Gali būti problemų su implementaciją. Ne visos gydymo įstaigos gali turėti galimybę registruotis prie jos internetu.
+            
+            Pastabos: -/-
+            
+    11: Pateikti pranešimą gydytojui;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Užsiregistruoti pas gydytoją(1)
+            Aktoriai: Pacientas.
+            Svarbumas: 4.
+            Poveikis sistemai: Nusiunčia į gydymo įstaigos sistemą pranešimą gydytojui.
+            Pokyčių skalė: 3.
+            
+            Veikimo principas: Priima paciento pranešimą bei bando siųsti jį į kitą sistemą, jei tai implementuota.
+            
+            Galimi konfliktai: Kita sistema gali to neturėti, reikia atsižvelgti į gaunančią sistemą. Galima piknaudžiavimas siuntinėjant neaktualią informaciją gydytojui.
+           
+            Pastabos:
+                Ignas: Atrodo sudėtinga ir sunkiai įgyvendinama.
+                
+    12: Asmeninės informacijos ketimas
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: -/-
+            Aktoriai: Pacientas.
+            Svarbumas: 3.
+            Poveikis sistemai: Atnaujama turima informacija apie vartotoją.
+            Pokyčių skalė: 2.
+            
+            Veikimo principas: Priima paciento įvestus pakeitimus bei juos išsaugo ligo sistemoje bei susietuose gydymo įstaigų sistemose.
+            
+            Galimi konfliktai: Galimas piknaudžiavimas beprasmišku vartotojo informacijos keitinėjimu.
+            
+            Pastabos: -/-
+            
+    13: Pateikti atsiliepimus apie gydytoją;
+            Reikalavimo timas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1).
+            Aktoriai: Pacientas, Gydytojas.
+            Svarbumas: 4.
+            Poveikis sistemai: Priskiria gydytojui reitingą, paliekamą jo pacientų.
+            Pokyčių skalė: 1.
+            
+            Veikimo principas: Po vizito pas gydytoją, pacientui leidžiama palikti atsiliepimą apie gydytoją.
+            
+            Galimi konfliktai: Galima melaginga informacija iš paciento. 
+            
+            Pastabos: -/-.
+            
+    14: Pateikti atsiliepimus apie gydymo įstaigą;
+            Reikalavimo timas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1).
+            Aktoriai: Pacientas.
+            Svarbumas: 4.
+            Poveikis sistemai: Priskiria gydymo įstaigai reitingą, paliekamą jo pacientų.
+            Pokyčių skalė: 1.
+            
+            Veikimo principas: Po vizito pas gydytoją, pacientui leidžiama palikti atsiliepimą apie gydymo įstaigą.
+            
+            Galimi konfliktai: Galima melaginga informacija iš paciento. 
+            
+            Pastabos: -/-.
+    
+    15: Pateikti informaciją apie gydymo įstaigą;
+            Reikalavimo timas: Funkcinis.
+            Kilo iš: -/-
+            Aktoriai: Pacientas.
+            Svarbumas: 4.
+            Poveikis sistemai: Pateikia bendrą informaciją apie gydymo įstaigą
+            Pokyčių skalė: 1.
+           
+            Veikimo principas: Pacientui pateikiama trumpa bendra informacija apie gydymo įstaigą.
+            
+            Galimi konfliktai: Gali būti pateikiama sena informacija.
+            
+            Pastabos: -/-.
+    16: Automatinis talono užregistravimas, kai randamas laisvas talonas;
+            Reikalavimo timas: Funkcinis.
+            Kilo iš: -/-
+            Aktoriai: Pacientas.
+            Svarbumas: 3.
+            Poveikis sistemai: Automatiškai išsiunčia rezervavimo prašymą gydymo įstaigos sistemai.
+            Pokyčių skalė: 2.
+           
+            Veikimo principas: Vartotojui panorėjus, sistema ieško bei laukia laisvų gydytojo vizito talonų bei radus galimybę rezervuoti pagal paciento poreikius, užrezervuoja taloną.
+            
+            Galimi konfliktai: Gali nepatikti kitoms gydymo įstaigų sistemoms. Padidėja nepanaudotų talonų galimybė.
+            
+            Pastabos: Vienas iš būdų, kaip gali išsiskirti Ligo;
+    17: Galimybė atsisakyti priminimų apie vizitus pas gydytojus;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Priminti apie vizitą pas gydytoją(7)
+            Aktoriai: Pacientas.
+            Svarbumas: 4.
+            Poveikis sistemai: Pasako sistemai nepriminti vartotojui apie artėjantį vizitą.
+            Pokyčių skalė: 1.
+           
+            Veikimo principas: Leidžia vartotojui pasirinkti, kad jam nereikia priminimo ir kad jo jam siųsti nereikia.
+            
+            Galimi konfliktai: Padidėja nepanaudotų talonų galimybė.
+            
+            Pastabos: -/-.
+    18: Galimybė peržiūrėti atsiliepimus apie gydytoją/gydymo įstaigą;
+	    Reikalavimo tipas: Funkcinis.
+	    Kilo iš: Pateikti atsiliepimus apie gydytoją(13),Pateikti atsiliepimus apie gydymo įstaigą(14).
+	    Aktoriai: Pacientas, gydytojas, gydymo įstaiga.
+	    Svarbumas: 4.
+	    Poveikis sistemai: -/-.
+            Pokyčių skalė: 1.
+
+	    Veikimo principas: Porodo gydytojo arba gydymo įstaigos atsiliepimus vartotojui.
+
+            Galimi konfliktai: -/-.
+
+            Pastabos: 
+		Mykolas: Ar reikia gydytojo/gydymo įstaigos aktorių?
+   
+Korektiškas programos veikimas:
+    Ignas; Tai, kai programa veikia tinkamai. Atlieka reikalavimą taip, kaip numatyto vykdymo eigoje.
+    Tomas: Tai, kai programa įgyvendina pagrindinę verslo logiką, bet gali ir neįgyvendinti tam tikrų keliamų reikalavimų 
+    
+    
+
+Funkcionalumai:
+	
+	Kas yra funkcionalumai:
+
+	Funkcionalumai: tai ką gali padaryti "Ligo" sistema suinteresuotam asmeniui. 
+			Funkcionalumų prioritetų skalė nuo reikavimų prioritetų skalės skiriasi ir žymima auktštu, vidutiniu arba žemu svarbumo prioritetu.
+
+	
+	
+	1. Registracija pas gydytoją.
+
+	apibūdinimas: Esminis sistemos funkcionalumas, leidžiantis pacientui užsiregistruoti pas pasirinktą gydytoją.
+	prioritetas: Aukštas
+	Funkciniai reikalavimai:
+
+{{
+
+ 1:  Užsiregistruoti pas gydytoją;
+            Reikalavimo tipas: Funkcinis
+            Kilo iš: bazinis;
+            Aktoriai: Gydytojas, pacientas.
+            Svarbumas: 1.
+            Poveikis sistemai: Esminis sistemos blokas. Be jo sistema negalėtų funkcionuoti, todėl veikia visą ligo sistemą.
+            Pokyčių skalė: 1.
+        
+            veikimo principas: Pacientas užsiregistruoja pas gydytoją remiantis galimais    gydytojo registracijos talonais. Gydytojas gali pridėti gydyotojo registracijos talonus bei priskirti galimą pacientą.
+        
+        Galimi konfliktai: -/-
+        
+        Pastabos: 
+            Tomas: įgyvendintas pirmo laboratorinio darbo protipe.
+            Ignas: pagrindinis sistemos reikalavimas.
+        
+    2:  Pateikti gydytojo informaciją;
+            Reikalavimo tipas: Funckinis.
+            Kilo iš: Užsiregistruoti pas gydytoją(1).
+            Aktoriai: Pacientas, gydytojas(redagavimo tikslams)
+            Svarbumas: 2.
+            poveikis sistemai: Gali iškelti neaiškumų atliekant registraciją pas gydytoją(1). Šio reikalavimo įgyvendinimas veikia visus komponentus, naudojančius šią informaciją.
+            pokyčių skalė: 2.
+            
+            Veikimo principas: Paprašius vartotojui, administratoriui, pateikiama tam aktoriui leidžiama prieiti informacija.
+            
+            Galimi konfliktai: vienos ligoninių registracijos sistemos šiuos duomenis gali paduoti vienaip, o kitos kitaip. Todėl pokyčių skalė yra įvertinta dvejetu. Įgyvendinant sistemą, reikės atsižvelgti į gaunamą informaciją iš kitų registracijos sistemų bei sukoreguoti juos taip, kad pateikiama informacija būtų paduodama korektiškai, pagal nusistatytą notaciją.
+            
+            Pastabos:
+                Tomas: Šis reikalavimas veiks nemažą dalį kitų reikalavimų, nors jo įgyvendinimas nėra įvertintas vienetu svarbumo skalėje.
+            
+            
+    3:  Pateikti gydytojo darbo grafiką;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Pateikti gydyojo informaciją(2), užsiregistruoti pas gydytoją(1).
+            Aktoriai: Pacientas, Gydytojas(redagavimo tikslams)
+            Svarbumas: 2.
+            Poveikis sistemai: Be šio reikalavimo labai sunku užsiregistruoti pas gydytoją. Gali paskirti laiką, netinkantį pacientui, todėl paciento akyse ši logika tampa nekorektiška.
+            pokyčių skalė: 2.
+            
+            Veikimo principas: Ligo gauna šią informaciją iš kitų ligonių registracijos sistemų bei pateikia ją pacientams.
+            
+            Galimi konflikai: žr. reikalavimą nr. 2.
+            
+            Pastabos: 
+                Ignas: Kyla neaiškumų dėl šio reikalavimo įgyvendinimo bei veikimo principo.
+                
+            
+    6:  Atšaukti vizitą pas gydyotoją;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1), Pateikti gydytojo darbo grafiką(3).
+            Aktoriai: Pacientas, gydytojas.
+            Svarbumas: 3.
+            Poveikis sistemai: Atlaisvins užimtus talonus gydytojo darbo grafike.
+            pokyčių skalė: 1.
+            
+            Veikimo principas: Leidžia atšaukti vizitą pas gydytoją pacientui.
+            
+            Galimi konfliktai: Pacientas gali piknaudžiauti sistema bei rezervuoti bei atšaukti vizitus neatsakingai.
+            
+            Pastabos:
+                Mykolas: Su šiais reikalavimai mes vis toliau šaliname gydytojus iš sistemos.
+
+    16: Automatinis talono užregistravimas, kai randamas laisvas talonas;
+            Reikalavimo timas: Funkcinis.
+            Kilo iš: -/-
+            Aktoriai: Pacientas.
+            Svarbumas: 3.
+            Poveikis sistemai: Automatiškai išsiunčia rezervavimo prašymą gydymo įstaigos sistemai.
+            Pokyčių skalė: 2.
+           
+            Veikimo principas: Vartotojui panorėjus, sistema ieško bei laukia laisvų gydytojo vizito talonų bei radus galimybę rezervuoti pagal paciento poreikius, užrezervuoja taloną.
+            
+            Galimi konfliktai: Gali nepatikti kitoms gydymo įstaigų sistemoms. Padidėja nepanaudotų talonų galimybė.
+            
+            Pastabos: Vienas iš būdų, kaip gali išsiskirti Ligo.
+            
+}}
+
+	2. Gydytojų/gydymo įstaigų atsiliepimai.
+
+	apibūdinimas: šis funkcionalumas leidžia pacientui peržiūrėti bei palikti atsiliemus apie aplankytas gydymo įstaigas bei jų gydytojus
+	prioritetas: žemas
+	Funkciniai reikalavimai:
+
+{{
+    13: Pateikti atsiliepimus apie gydytoją;
+            Reikalavimo timas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1).
+            Aktoriai: Pacientas, Gydytojas.
+            Svarbumas: 4.
+            Poveikis sistemai: Priskiria gydytojui reitingą, paliekamą jo pacientų.
+            Pokyčių skalė: 1.
+            
+            Veikimo principas: Po vizito pas gydytoją, pacientui leidžiama palikti atsiliepimą apie gydytoją.
+            
+            Galimi konfliktai: Galima melaginga informacija iš paciento. 
+            
+            Pastabos: -/-.
+            
+    14: Pateikti atsiliepimus apie gydymo įstaigą;
+            Reikalavimo timas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1).
+            Aktoriai: Pacientas.
+            Svarbumas: 4.
+            Poveikis sistemai: Priskiria gydymo įstaigai reitingą, paliekamą jo pacientų.
+            Pokyčių skalė: 1.
+            
+            Veikimo principas: Po vizito pas gydytoją, pacientui leidžiama palikti atsiliepimą apie gydymo įstaigą.
+            
+            Galimi konfliktai: Galima melaginga informacija iš paciento. 
+            
+            Pastabos: -/-.
+
+    18: Galimybė peržiūrėti atsiliepimus apie gydytoją/gydymo įstaigą;
+	    Reikalavimo tipas: Funkcinis.
+	    Kilo iš: Pateikti atsiliepimus apie gydytoją(13),Pateikti atsiliepimus apie gydymo įstaigą(14).
+	    Aktoriai: Pacientas, gydytojas, gydymo įstaiga.
+	    Svarbumas: 4.
+	    Poveikis sistemai: -/-.
+            Pokyčių skalė: 1.
+
+	    Veikimo principas: Porodo gydytojo arba gydymo įstaigos atsiliepimus vartotojui.
+
+            Galimi konfliktai: -/-.
+
+            Pastabos: 
+		Mykolas: Ar reikia gydytojo/gydymo įstaigos aktorių?
+
+}}
+
+	3. Asmeninės informacijos redagavimas visuose esamuose gydymo įstaigų sistemose.
+
+	apibūdinimas: Šis funkcionalumas leidžia pacientui pakeisti turimą asmeninę informaciją apie jį su Ligo susietose sistemose.
+	prioritetas: vidutinis
+	Funkciniai reikalavimai:
+{{
+
+    9: Šeimos gydytojo keitimas;
+            Reikalavimo tipas; Funkcinis.
+            Kilo iš: -/-.
+            Aktoriai: Pacientas.
+            Svarbumas: 4
+            Poveikis sistemai: Leidžia pacientui priregistruoti kitą šeimos gydytoją.
+            Pokyčių skalė: 3.
+            
+            Veikimo principas: Priskiria pacientui leidžiamą pasirinkti šeimos gydytoją.
+            
+            Galimi konfliktai: Galima piknaudžiavimas sistema per dažnu keitimu. Šis reikalavimas gali būti neimplementuotas kitoje ligoninės sistemoje, todėl ir neįvykdomas Ligo.
+            
+            Pastabos:
+                Ignas: Negalima maišyti poliklinikos su ligonine. Reikia išsiaiškinti sąvokų skirtumus.
+                
+    10: Priregistruotos gydymo įstaigos keitimas;
+            Reikalavimo tipas; Funkcinis.
+            Kilo iš: Užsiregistruoti pas gydytoją(1)
+            Aktoriai: Pacientas
+            Svarbumas: 4.
+            Poveikis sistemai: Priskiria pacientą prie tam tikros gydymo įstagos. Priskirimas leidžia registruotis prie tos įstaigos gydytojo.
+            Pokyčių skalė: 3.
+            
+            Veikimo principas: Susieja pacientą su tos gydymo įstaigos sistema, išplėtoja jo prieeigą prie jos.
+            
+            Galimi konfliktai: Gali būti problemų su implementaciją. Ne visos gydymo įstaigos gali turėti galimybę registruotis prie jos internetu.
+            
+            Pastabos: -/-
+
+    12: Asmeninės informacijos ketimas
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: -/-
+            Aktoriai: Pacientas.
+            Svarbumas: 3.
+            Poveikis sistemai: Atnaujama turima informacija apie vartotoją.
+            Pokyčių skalė: 2.
+            
+            Veikimo principas: Priima paciento įvestus pakeitimus bei juos išsaugo ligo sistemoje bei susietuose gydymo įstaigų sistemose.
+            
+            Galimi konfliktai: Galimas piknaudžiavimas beprasmišku vartotojo informacijos keitinėjimu.
+            
+            Pastabos: -/-
+}}
+
+	4. Vizito pas gydytoją priminimo sistema.
+
+	apibūdinimas: Šis funkcionalumas primina vartotojui apie jo artėjančius vizitus, užregistruotus Ligo bei kitose susietose ligonių registracijos sistemose.
+	prioritetas: vidutinis
+	Funkciniai reikalavimai:
+
+{{
+	7:  Priminti apie vizitą pas gydytoją;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Registracija pas gydytoją(1).
+            Aktoriai: Pacientas.
+            Svarbumas: 4
+            Poveikis sistemai: Sumažina pamirštų vizitų tikimybę.
+            Pokyčių skalė: 1.
+            
+            Veikimo principas: Išsiunčia žinutę likus tam tikram laiko tarpui iki vizito.
+            
+            Galimi konfliktai: Gali nukeliauti į spam dežutę, jei siųsime pranešimą per el. paštą.
+            
+            Pastabos;
+                Ignas: Reikia pridėt galimybę ir atšaukti priminimus.
+
+	17: Galimybė atsisakyti priminimų apie vizitus pas gydytojus;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Priminti apie vizitą pas gydytoją(7)
+            Aktoriai: Pacientas.
+            Svarbumas: 4.
+            Poveikis sistemai: Pasako sistemai nepriminti vartotojui apie artėjantį vizitą.
+            Pokyčių skalė: 1.
+           
+            Veikimo principas: Leidžia vartotojui pasirinkti, kad jam nereikia priminimo ir kad jo jam siųsti nereikia.
+            
+            Galimi konfliktai: Padidėja nepanaudotų talonų galimybė.
+            
+            Pastabos: -/-.
+
+}}
+
+	5. Susisiekimas su gydytoju.
+
+	apibūdinimas: Šis funkcionalumas leižia pacientui susisiekti su gydytoju per ligonių gydymo sistemą.
+	prioritetas: žemas.
+	Funkciniai reikalavimai:
+
+{{
+	11: Pateikti pranešimą gydytojui;
+            Reikalavimo tipas: Funkcinis.
+            Kilo iš: Užsiregistruoti pas gydytoją(1)
+            Aktoriai: Pacientas.
+            Svarbumas: 4.
+            Poveikis sistemai: Nusiunčia į gydymo įstaigos sistemą pranešimą gydytojui.
+            Pokyčių skalė: 3.
+            
+            Veikimo principas: Priima paciento pranešimą bei bando siųsti jį į kitą sistemą, jei tai implementuota.
+            
+            Galimi konfliktai: Kita sistema gali to neturėti, reikia atsižvelgti į gaunančią sistemą. Galima piknaudžiavimas siuntinėjant neaktualią informaciją gydytojui.
+           
+            Pastabos:
+                Ignas: Atrodo sudėtinga ir sunkiai įgyvendinama.
+}}
+

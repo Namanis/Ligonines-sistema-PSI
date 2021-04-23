@@ -1,0 +1,18 @@
+ Darbo grafikas:
+    Mykolas:
+        27-11 vakare(treciadienis)
+        28-11 ryte(penktadienis)
+        01-12 vakare(sekmadienis)
+        02-12 vakare(pirmadienis)
+    Ignas:
+        26-11 vakare(antradienis)
+        27-11 vakare(treciadienis) ???
+        28-11 vakare(ketvirtadienis)
+        30-11 visa diena(sestadienis)
+        01-12 vakare(sekmadienis)
+        02-12 vakare(pirmadienis)
+    Susikerta:
+        //+27-11 vakare(treciadienis) ?? (18:30 MKIC)
+        +28-11 vakare(penktadienis)
+        +01-12 vakare(sekmadienis) (18:00 MKIC)
+        +02-12 vakare(pirmadienis) (18:00 MKIC)

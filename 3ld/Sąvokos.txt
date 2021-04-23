@@ -1,0 +1,39 @@
+Talonas - Susitikimo rezervacijos patvirtinimas, jame nurodytu laiku, pas nurodyta gydytoja, nurodytoje gydymo istaigoje.
+Registracijos sistema - Sistema leidžianti vartotojui užsiregistruoti pas gydytoja per internetini puslapi
+Gydymo istaiga - Visuomenes ar valstybes organizacija teikianti medicinine pagalba
+Gydytojo užimtumo grafikas - Laikai, rodantys kada gydytojas yra laisvas, o kada užsiemes 
+Gydytojas - Žmogus dirbantis gydymo istaigoje ir teikiantis gydymo paslaugas
+Pacientas - Asmuo, kuris kreipiasi i gydytoja del sveikatos
+Administratorius - Asmuo atsakingas už tvarkinga sistemos veikima
+Vizitas - Paciento susitikimas su Gydytoju
+Gydytojo informacija - Gydytojo darbo duomenys(specialybe, kabinetas, darbo laikas)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Užduotys - Funkcijos, kurias gali atlikti sistema
+
